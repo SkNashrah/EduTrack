@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="ExamPortal.Signup"
+             Style="{StaticResource RrPage}"
+             Title="Signup">
+        <Grid RowDefinitions="1*, 1*, 2*">
+
+            <BoxView Grid.Row="0"
+                 Grid.RowSpan="2"
+                 BackgroundColor="{StaticResource RrPrimary}"
+                 CornerRadius="0,0,20,20"/>
+
+            <Label Grid.Row="0"
+                   Text="ResultRocket"
+                   TextColor="White"
+                   FontFamily="Pacifico"
+                   FontSize="40"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+
+            <Frame Grid.Row="1"
+               Margin="30,0,30,0"
+               VerticalOptions="Start"
+               HeightRequest="420"
+               CornerRadius="30"
+               HasShadow="True"
+               BorderColor="Transparent"
+               BackgroundColor="White">
+                <Grid RowDefinitions="Auto, *">
+                    <Label Grid.Row="0" 
+                       Text="Signup"
+                       FontSize="30"
+                       Padding="10"
+                       FontAttributes="Bold"
+                       Style="{StaticResource RrPrimaryText}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start"/>
+            
+                    <VerticalStackLayout Grid.Row="1" 
+                                     Padding="20"
+                                     Spacing="5"
+                                     VerticalOptions="Center">
+                        <Entry x:Name="EmailEntry"
+                               Placeholder="Email ID"
+                               Text="{Binding Email}"
+                               FontSize="10"
+                               Keyboard="Email"                          
+                               Style="{StaticResource RrEntry}"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Fill">
+                            <Entry.Behaviors>
+                                <behaviors:EmailValidationBehavior 
+                                    x:Name="EmailValidator"
+                                    Flags="ValidateOnValueChanged"/>
+                            </Entry.Behaviors>
+                        </Entry>
+
+                        <Label Text="Please enter a valid email address"
+                               TextColor="Red"
+                               FontSize="8"
+                               IsVisible="{Binding Source={x:Reference EmailValidator}, Path=IsNotValid}">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                            Binding="{Binding Source={x:Reference EmailEntry}, Path=Text.Length}"
+                                            Value="0">
+                                    <Setter Property="IsVisible" Value="False"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+
+                        <Entry x:Name="UsernameEntry"
+                               Placeholder="Username"
+                               Text="{Binding Username}"
+                               FontSize="10"
+                               Style="{StaticResource RrEntry}"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Fill"/>
+
+
+                        <Entry x:Name="PasswordEntry"
+                               Placeholder="Password"
+                               IsPassword="True"
+                               Style="{StaticResource RrEntry}"
+                               Text="{Binding Password}"
+                               FontSize="10"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               HorizontalOptions="Fill"/>
+
+                        <Entry x:Name="ConfirmPasswordEntry"
+                               Placeholder="Confirm Password"
+                               IsPassword="True"
+                               Style="{StaticResource RrEntry}"
+                               Text="{Binding ConfirmPassword}"
+                               FontSize="10"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               HorizontalOptions="Fill"/>
+
+                        <Button Text="Signup"
+                            FontSize="12"
+                            Style="{StaticResource RrButton}"
+                            Command="{Binding SignupCommand}"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Fill"
+                            Margin="0,10,0,0"/>
+
+
+                    </VerticalStackLayout>
+                </Grid>
+            </Frame>
+
+            <Label Grid.Row="2"
+               Text="Have Account? Login"
+               FontSize="10"
+               TextColor="{StaticResource RrSecondary}"
+               HorizontalOptions="Center"
+               VerticalOptions="End"
+               Margin="0,0,0,60">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToLoginCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Label Grid.Row="2"
+               Text="© 2024 ResultRocket. All rights reserved."
+               FontSize="8"
+               TextColor="{StaticResource RrTextDark}"
+               HorizontalOptions="Center"
+               VerticalOptions="End"
+               Margin="0,0,0,20"/>
+        </Grid>
+</ContentPage>

@@ -1,0 +1,44 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build
+bin/
+obj/
+
+# Rider
+.idea/
+
+# NuGet
+packages/
+
+# Logs
+*.log
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Test Results
+TestResults/
+
+# Publish
+publish/
+
+# MAUI
+artifacts/
+
+# Android
+*.keystore
+*.jks
+
+# Temporary
+*.tmp
+*.cache
+
+# ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+*.csproj.user

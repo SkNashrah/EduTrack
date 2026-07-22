@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             Background="{StaticResource RrBackground}"
+             x:Class="ExamPortal.LoginPage"
+             Title="LoginPage">
+    
+    <Grid RowDefinitions="1*, 1*, 2*">
+
+        <BoxView Grid.Row="0"
+                 Grid.RowSpan="2"
+                 BackgroundColor="{StaticResource RrPrimary}"
+                 CornerRadius="0,0,20,20"/>
+
+        <Label Grid.Row="0"
+               Text="ResultRocket"
+               FontFamily="Pacifico"
+               TextColor="White"
+               FontSize="40"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+
+        <Frame Grid.Row="1"
+               Margin="30,0,30,0"
+               VerticalOptions="Start"
+               HeightRequest="400"
+               CornerRadius="30"
+               HasShadow="True"
+               BorderColor="Transparent"
+               BackgroundColor="White">
+                <Grid RowDefinitions="Auto, *">
+                    <Label Grid.Row="0" 
+                       Text="Login"
+                       FontSize="30"
+                       Padding="30"
+                       FontAttributes="Bold"
+                       Style="{StaticResource RrPrimaryText}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start"/>
+
+                    <VerticalStackLayout Grid.Row="1" 
+                                     Padding="20"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+
+                        <Entry x:Name="UsernameEntry"
+                               Placeholder="Username"
+                               Text="{Binding Username}"
+                               FontSize="10"
+                               Style="{StaticResource RrEntry}"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Fill"/>
+
+
+                        <Entry x:Name="PasswordEntry"
+                               Placeholder="Password"
+                               IsPassword="True"
+                               Style="{StaticResource RrEntry}"
+                               Text="{Binding Password}"
+                               FontSize="10"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               HorizontalOptions="Fill"/>
+
+
+                        <Button Text="Login"
+                            FontSize="12"
+                            Style="{StaticResource RrButton}"
+                            Command="{Binding LoginCommand}"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Fill"/>
+
+                        <Label Grid.Row="2"
+                            Text="Forgot Password?"
+                            FontSize="8"
+                            TextColor="{StaticResource RrSecondary}"
+                            HorizontalOptions="End"
+                            VerticalOptions="End"
+                            Margin="0,0,0,60"/>
+                    </VerticalStackLayout>
+                </Grid>
+        </Frame>
+
+
+        <Label Grid.Row="2"
+               Text="New user? Sign Up"
+               FontSize="10"
+               TextColor="{StaticResource RrSecondary}"
+               HorizontalOptions="Center"
+               VerticalOptions="End"
+               Margin="0,0,0,80">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigateToSignupCommand }"/> 
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Label Grid.Row="2"
+               Text="© 2024 ResultRocket. All rights reserved."
+               FontSize="8"
+               TextColor="{StaticResource RrTextDark}"
+               HorizontalOptions="Center"
+               VerticalOptions="End"
+               Margin="0,0,0,20"/>
+    </Grid>
+</ContentPage>

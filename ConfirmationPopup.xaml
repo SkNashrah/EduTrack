@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<popup:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:popup="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+             x:Class="ExamPortal.ConfirmationPopup"
+             Margin="0"
+             Padding="0">
+
+    <Frame CornerRadius="20"
+           Style="{StaticResource RrCardPrimary}"
+           WidthRequest="300"
+           HorizontalOptions="Center"
+           VerticalOptions="Center">
+
+        <VerticalStackLayout Spacing="20">
+            <Label Text="{Binding Title}" 
+                   FontSize="18"
+                   Style="{StaticResource RrPrimaryText}"
+                   TextColor="{StaticResource RrSecondary}"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"/>
+
+            <Label Text="{Binding Message}"
+                   Style="{StaticResource RrPrimaryText}"
+                   FontSize="14"
+                   FontAttributes="Bold"/>
+            
+            <HorizontalStackLayout Spacing="10" 
+                                   HorizontalOptions="Center">
+                <Button Text="Cancel" 
+                        Command="{Binding CancelCommand}"
+                        WidthRequest="100"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource RrPlaceholder}"
+                        BorderColor="{StaticResource RrPrimary}"/>
+                
+                <Button Text="Confirm" 
+                        Command="{Binding ConfirmCommand}"
+                        BorderColor="{AppThemeBinding Light={StaticResource CosmicPrimary}, Dark={StaticResource CosmicPrimaryDark}}"
+                        Style="{StaticResource RrButton}"
+                        BackgroundColor="{StaticResource RrPrimary}"
+                        WidthRequest="150"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Frame>
+</popup:Popup>

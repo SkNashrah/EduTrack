@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:button="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:inputLayout="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:input="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+             xmlns:popups="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui" 
+             x:Class="MyMauiApp.AddExamSchedule"
+             Style="{StaticResource RrPage}"
+             Title="AddExamSchedule">
+    <Grid RowDefinitions="*,Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="-15"
+                                 Padding="10">
+                <inputLayout:SfTextInputLayout Hint="Subject Name"
+                                               ContainerType="Outlined"
+                                               OutlineCornerRadius="8">
+                    <Entry Text="{Binding Subject}"
+                           FontSize="12"
+                           Style="{StaticResource RrEntry}"/>
+                </inputLayout:SfTextInputLayout>
+
+                <inputLayout:SfTextInputLayout Hint="Course"
+                               ContainerType="Outlined"
+                               OutlineCornerRadius="8">
+                    <input:SfComboBox ItemsSource="{Binding Courses}"
+                                      SelectedItem="{Binding SelectedCourse}"
+                                      FontSize="12"
+                                      TextColor="{StaticResource RrTextDark}"
+                                      PlaceholderColor="{StaticResource RrPlaceholder}"
+                                      Placeholder="Select Course"/>
+                </inputLayout:SfTextInputLayout>
+
+                <inputLayout:SfTextInputLayout Hint="Year"
+                               ContainerType="Outlined"
+                               OutlineCornerRadius="8">
+                    <input:SfComboBox ItemsSource="{Binding Years}"
+                                      SelectedItem="{Binding SelectedYear}"
+                                      FontSize="12"
+                                      TextColor="{StaticResource RrTextDark}"
+                                      PlaceholderColor="{StaticResource RrPlaceholder}"
+                                      Placeholder="Select Year"/>
+                </inputLayout:SfTextInputLayout>
+
+                <inputLayout:SfTextInputLayout Hint="Semester"
+                               ContainerType="Outlined"
+                               OutlineCornerRadius="8">
+                    <input:SfComboBox ItemsSource="{Binding Semesters}"
+                                      SelectedItem="{Binding SelectedSemester}"
+                                      FontSize="12"
+                                      TextColor="{StaticResource RrTextDark}"
+                                      PlaceholderColor="{StaticResource RrPlaceholder}"
+                                      Placeholder="Select Semester"/>
+                </inputLayout:SfTextInputLayout>
+
+                <inputLayout:SfTextInputLayout Hint="Date"
+                                               ContainerType="Outlined"
+                                               OutlineCornerRadius="8">
+                    <DatePicker Date="{Binding Date}"
+                                Format="dd/MM/yyyy"
+                                TextColor="{StaticResource RrTextDark}"
+                                FontSize="10"
+                                MinimumDate="2025-09-10"
+                                MaximumDate="2026-04-30"/>
+                </inputLayout:SfTextInputLayout>
+
+                <inputLayout:SfTextInputLayout Hint="Time"
+                                               ContainerType="Outlined"
+                                               OutlineCornerRadius="8">
+                    <TimePicker Time="{Binding Time}"
+                                TextColor="{StaticResource RrTextDark}"
+                                FontSize="10"/>
+                </inputLayout:SfTextInputLayout>
+                
+                <inputLayout:SfTextInputLayout Hint="Venue"
+                               ContainerType="Outlined"
+                               OutlineCornerRadius="8">
+                    <input:SfComboBox ItemsSource="{Binding Venues}"
+                                      SelectedItem="{Binding SelectedVenue}"
+                                      FontSize="12"
+                                      TextColor="{StaticResource RrTextDark}"
+                                      PlaceholderColor="{StaticResource RrPlaceholder}"
+                                      Placeholder="Select Venue"/>
+                </inputLayout:SfTextInputLayout>
+
+                <inputLayout:SfTextInputLayout Hint="Description"
+                                               ContainerType="Outlined">
+                    <Editor Text="{Binding Description}"
+                            FontSize="12" 
+                            TextColor="{StaticResource RrTextDark}"
+                            PlaceholderColor="{StaticResource RrPlaceholder}"
+                            AutoSize="TextChanges"/>
+                </inputLayout:SfTextInputLayout>
+
+                <Button Text="Add Exam"
+                        Command="{Binding AddExamScheduleCommand}"
+                        CornerRadius="8"
+                        FontSize="14"
+                        BackgroundColor="{StaticResource RrPrimary}"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        HeightRequest="50"/>
+
+
+
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

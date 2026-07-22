@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ExamPortal.ViewModels"
+             x:Class="ExamPortal.ProfilePage"
+             x:Name="Profile">
+
+    
+
+    <Grid >
+        <BoxView x:Name="backgroundOverlay"
+                 BackgroundColor="#80000000"
+                 IsVisible="{Binding ProfileVm.IsVisible}"
+                 InputTransparent="False">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnBackgroundTapped"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <Frame x:Name="profilePanel"
+               BackgroundColor="White"
+               Padding="20"
+               HasShadow="True"
+               HorizontalOptions="End"
+               WidthRequest="280"
+               IsVisible="{Binding  ProfileVm.IsVisible}"
+               TranslationX="300">
+            <Frame.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Right"
+                                        Swiped="OnSwipeToHide"/>
+            </Frame.GestureRecognizers>
+
+            <ScrollView>
+                <VerticalStackLayout Spacing="5">
+                    <!-- Profile header -->
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Frame HeightRequest="80"
+                               WidthRequest="80"
+                               CornerRadius="40"
+                               BackgroundColor="{StaticResource RrPrimary}"
+                               HorizontalOptions="Center"
+                               Padding="0">
+                            <Image Source="user.png" 
+                                   WidthRequest="90"
+                                   HeightRequest="90"
+                                   Aspect="AspectFill"/>
+                        </Frame>
+                        <Label Text="{Binding UserName}" 
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"/>
+                        <Label Text="{Binding  ProfileVm.UserRole}" 
+                               FontSize="14"
+                               TextColor="Gray"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+
+                    <!-- Menu buttons -->
+                    <Button Text="Add New Exam" 
+                            Command="{Binding  ProfileVm.NavigateToAddExamCommand}"
+                            TextColor="{StaticResource RrSecondary}"
+                            BackgroundColor="Transparent"
+                            FontSize="12"
+                            CornerRadius="10"/>
+
+                    <Button Text="View Timetable" 
+                            Command="{Binding  ProfileVm.NavigateToTimeTableCommand}"
+                            BackgroundColor="Transparent"
+                            TextColor="{StaticResource RrSecondary}"
+                            FontSize="12"
+                            CornerRadius="10"/>
+
+                    <Label Text="Settings"
+                           TextColor="{StaticResource RrSecondary}"
+                           FontSize="12"
+                           Padding="0,0,0,160"
+                           HorizontalOptions="Center"/>
+
+
+                    <Button Text="Logout" 
+                            Command="{Binding  ProfileVm.LogoutCommand}"
+                            BackgroundColor="{StaticResource RrDanger}"
+                            TextColor="White"
+                            FontSize="12"
+                            VerticalOptions="End"
+                            CornerRadius="10"
+                            HeightRequest="50"/>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Frame>
+    </Grid>
+</ContentView>

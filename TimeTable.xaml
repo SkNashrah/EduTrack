@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:inputLayout="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:input="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+             xmlns:local="clr-namespace:ExamPortal"
+             x:Class="ExamPortal.TimeTable"
+             Style="{StaticResource RrPage}"
+             Title="TimeTable">
+    <Grid RowDefinitions="*, Auto">
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout>
+                <Frame CornerRadius="5"
+                       Margin="10"
+                       Style="{StaticResource RrCardPrimary}"
+                       Padding="10">
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Filter Exam"
+                               Style="{StaticResource RrPrimaryText}"
+                               FontAttributes="Bold"
+                               FontSize="Medium"/>
+                        
+                        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto"
+                              RowSpacing="5">
+                            <inputLayout:SfTextInputLayout Hint="Course"
+                                                           Grid.Row="0"
+                                                           Margin="0,-5"
+                                                           ContainerType="Outlined"
+                                                           OutlineCornerRadius="8">
+                                <input:SfComboBox ItemsSource="{Binding Courses}"
+                                                  SelectedItem="{Binding SelectedCourse}"
+                                                  FontSize="12"
+                                                  TextColor="{StaticResource RrTextDark}"
+                                                  PlaceholderColor="{StaticResource RrPlaceholder}"
+                                                  Placeholder="Select Course"/>
+                            </inputLayout:SfTextInputLayout>
+
+                            <inputLayout:SfTextInputLayout Hint="Year"
+                                                           Grid.Row="1"
+                                                           Margin="0,-5"
+                                                           ContainerType="Outlined"
+                                                           OutlineCornerRadius="8">
+                                <input:SfComboBox ItemsSource="{Binding Years}"
+                                                  SelectedItem="{Binding SelectedYear}"
+                                                  FontSize="12"
+                                                  TextColor="{StaticResource RrTextDark}"
+                                                  PlaceholderColor="{StaticResource RrPlaceholder}"
+                                                  Placeholder="Select Years"/>
+                            </inputLayout:SfTextInputLayout>
+
+                           
+
+                            <Button Text="Clear"
+                                    Grid.Row="2"
+                                    Command="{Binding ClearFiltersCommand}"
+                                    Style="{StaticResource RrButton}"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Label Text="Exam Timetable"
+                       FontSize="30"
+                       Padding="20"
+                       Style="{StaticResource RrPrimaryText }"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start"/>
+
+                <CollectionView x:Name="ExamsCollectionView"
+                                ItemsSource="{Binding FilteredExams}"
+                                SelectionMode="None"
+                                EmptyView="No exams found."
+                                Margin="10">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Style="{StaticResource RrCardSecondary}">
+                                <VerticalStackLayout Spacing="20">
+                                    <Label Text="{Binding Subject}" 
+                                     FontSize="14" 
+                                     FontAttributes="Bold"
+                                     TextColor="{StaticResource RrSecondary}" />
+
+                                    <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto,Auto" 
+                                      RowSpacing="5" ColumnSpacing="10">
+                                        <Label Text="Date:" 
+                                               Grid.Row="0" 
+                                               FontSize="12"
+                                               Grid.Column="0" 
+                                               FontAttributes="Bold" />
+                                        
+                                        <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}" 
+                                               FontSize="12"
+                                               Grid.Row="0" 
+                                               Grid.Column="1" />
+
+                                        <Label Text="Time:"
+                                               FontSize="12"
+                                               Grid.Row="1" 
+                                               Grid.Column="0" 
+                                               FontAttributes="Bold" />
+                                        
+                                        <Label Text="{Binding Time}" 
+                                               FontSize="12"
+                                               Grid.Row="1" 
+                                               Grid.Column="1" />
+
+                                        <Label Text="Venue:" 
+                                               FontSize="12"
+                                               Grid.Row="2"
+                                               Grid.Column="0"
+                                               FontAttributes="Bold" />
+                                        
+                                        <Label Text="{Binding Venue}" 
+                                               FontSize="12"
+                                               Grid.Row="2" 
+                                               Grid.Column="1" />
+
+                                        <Label Text="Course:" 
+                                               FontSize="12"
+                                               Grid.Row="3" 
+                                               Grid.Column="0"
+                                               FontAttributes="Bold" />
+                                        
+                                        <Label Text="{Binding Course}" 
+                                               FontSize="12"
+                                               Grid.Row="3"
+                                               Grid.Column="1" />
+
+                                        <Label Text="Year:"
+                                               FontSize="12"
+                                               Grid.Row="4"
+                                               Grid.Column="0" 
+                                               FontAttributes="Bold" />
+                                        <Label Text="{Binding Year, StringFormat='{0}'}" 
+                                               FontSize="12"
+                                               Grid.Row="4" 
+                                               Grid.Column="1" />
+                                        <Label Text="Semester:"
+                                               FontSize="12"
+                                               Grid.Row="5"
+                                               Grid.Column="0" 
+                                               FontAttributes="Bold" />
+                                        <Label Text="{Binding Semester, StringFormat='{0}'}" 
+                                               FontSize="12"
+                                               Grid.Row="5" 
+                                               Grid.Column="1" />
+                                    </Grid>
+
+                                    
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+        <local:ProfilePage Grid.Row="0"
+                           VerticalOptions="Start"/>
+        <Grid Grid.Row="1" 
+              ColumnDefinitions="*, *, *, *, *"  
+              ColumnSpacing="15" 
+              Padding="5"
+              BackgroundColor="{StaticResource RrPrimary}">
+
+
+            <ImageButton Source="home.png"                          
+                         Command="{Binding NavigateToDashboardCommand}"
+                         HeightRequest="10"
+                         Grid.Column="0"/>
+
+            <ImageButton Source="calendar.png"
+                 Command="{Binding NavigateToCalendarCommand}"
+                 HeightRequest="10"
+                 Grid.Column="1" />
+
+            <ImageButton Source="marksheet.png"
+                 Command="{Binding NavigateToResultSummaryCommand}"
+                 HeightRequest="10"
+                 Grid.Column="2" />
+
+
+            <ImageButton Source="listfill.png"
+                Command="{Binding NavigateToTimeTableCommand}"
+                CornerRadius="8"
+                BackgroundColor="{StaticResource RrPrimary}"
+                HeightRequest="10"
+                Grid.Column="3"/>
+
+            <ImageButton Source="user.png"
+                 Command="{Binding ShowProfileCommand}"
+                 CornerRadius="30"
+                 HeightRequest="10"
+                 Grid.Column="4" />
+
+        </Grid>
+    </Grid>
+</ContentPage>

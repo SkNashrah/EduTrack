@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ExamPortal.ViewModels"
+             xmlns:inputLayout="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:input="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+             xmlns:local="clr-namespace:ExamPortal"
+             Style="{StaticResource RrPage}"
+             x:Class="ExamPortal.ResultSummary"
+             Title="Result">
+    <ContentPage.BindingContext>
+        <viewModels:ResultSummaryViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="*,Auto">
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="20" Spacing="20">
+
+                <!-- Course Selection -->
+                <inputLayout:SfTextInputLayout Hint="Course"
+                ContainerType="Outlined"
+                OutlineCornerRadius="8">
+                    <input:SfComboBox ItemsSource="{Binding Courses}"
+                                  FontSize="10"
+                                  SelectedItem="{Binding SelectedCourse}"
+                                  TextColor="{StaticResource RrTextDark}"
+                                  PlaceholderColor="{StaticResource RrPlaceholder}"
+                                  Placeholder="Select Semester"/>
+                </inputLayout:SfTextInputLayout>
+
+                <!-- Student Results -->
+                <Label Text="STUDENT RESULTS" 
+               FontSize="14" 
+               FontAttributes="Bold"
+               TextColor="{StaticResource RrTextDark}"/>
+
+                <CarouselView ItemsSource="{Binding StudentMarksheets}"
+                          Loop="False"
+                          HorizontalScrollBarVisibility="Never"
+                          WidthRequest="350"
+                          Margin="1">
+                    <CarouselView.EmptyView>
+                        <VerticalStackLayout Padding="40" 
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Center">
+                            <Label Text="No results available." 
+                           FontSize="18" 
+                           FontAttributes="Italic"
+                           TextColor="#A0A0A0"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"/>
+                            <Label Text="Please select a course or leave blank for all results." 
+                           FontSize="16" 
+                           TextColor="#A0A0A0"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"
+                           Margin="0,10,0,0"/>
+                        </VerticalStackLayout>
+                    </CarouselView.EmptyView>
+
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Stroke="#E0E0E0"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 10"
+                                BackgroundColor="White"
+                                Padding="20"
+                                Margin="15">
+                                <VerticalStackLayout>
+
+                                    <!-- Student Header -->
+                                    <Border BackgroundColor="White"
+                                        Stroke="Transparent"
+                                        StrokeThickness="1"
+                                        Padding="15"
+                                        StrokeShape="RoundRectangle 8">
+                                        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" RowSpacing="8">
+                                            <Label Text="{Binding StudentName}" 
+                                           FontSize="10"
+                                           FontAttributes="Bold"
+                                           TextColor="#2D2D2D"
+                                           Grid.Column="0" Grid.Row="0"/>
+
+                                            <Label Text="{Binding Course, StringFormat='Course: {0}'}" 
+                                           TextColor="#2D2D2D"
+                                           FontSize="10"
+                                           Grid.Column="1" Grid.Row="0"
+                                           HorizontalOptions="Start"/>
+
+                                            <Label Text="{Binding Year, StringFormat='Year: {0}'}"
+                                           FontSize="10"
+                                               HorizontalOptions="Start"
+                                           TextColor="#2D2D2D"
+                                           Grid.Column="0" Grid.Row="1"/>
+
+                                            <Label Text="{Binding Semester, StringFormat='Semester: {0}'}"
+                                           FontSize="10"
+                                           TextColor="#2D2D2D"
+                                           Grid.Column="1" Grid.Row="1"
+                                           HorizontalOptions="Start"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <!-- Subjects Header -->
+                                    <Grid ColumnDefinitions="2*,*,*,*"
+                                      Padding="5"
+                                      BackgroundColor="{StaticResource RrSecondary}">
+                                        <Label Text="Subject"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       FontSize="9"
+                                       VerticalOptions="Center"
+                                       Grid.Column="0"/>
+
+                                        <Label Text="Total Marks"
+                                           LineBreakMode="WordWrap"
+                                           FontAttributes="Bold"
+                                           FontSize="8"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center"
+                                           Grid.Column="1"/>
+
+                                        <Label Text="Marks"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       FontSize="8"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"
+                                       Grid.Column="2"/>
+
+                                        <Label Text="Grade" 
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       FontSize="8"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"
+                                       Grid.Column="3"/>
+                                    </Grid>
+
+                                    <!-- Subjects List -->
+                                    <VerticalStackLayout Spacing="2" HeightRequest="250">
+                                        <CollectionView ItemsSource="{Binding Subjects}">
+                                            <CollectionView.EmptyView>
+                                                <Label Text="No subjects available"
+                                               FontSize="14"
+                                               TextColor="#A0A0A0"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               Margin="0,20"/>
+                                            </CollectionView.EmptyView>
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid ColumnDefinitions="2*,*,*,*" 
+                                                      Padding="10,8"
+                                                      HeightRequest="50">
+
+                                                        <Label Text="{Binding SubjectName}" 
+                                                           TextColor="#2D2D2D"
+                                                           FontSize="8"
+                                                           LineBreakMode="WordWrap"
+                                                           VerticalOptions="Center"
+                                                           Grid.Column="0"/>
+
+                                                        <Label Text="100"
+                                                           TextColor="{StaticResource RrPrimaryDark}"
+                                                           FontSize="8"
+                                                           VerticalOptions="Center"
+                                                           HorizontalOptions="Center"
+                                                           Grid.Column="1"/>
+
+                                                        <Label Text="{Binding MarksObtained, StringFormat='{0}/{1}'}" 
+                                                       TextColor="#2D2D2D"
+                                                       FontSize="8"
+                                                       VerticalOptions="Center"
+                                                       HorizontalOptions="Center"
+                                                       Grid.Column="2"/>
+
+                                                        <Label Text="{Binding Grade}" 
+                                                       TextColor="#2D2D2D"
+                                                       FontSize="8"
+                                                       VerticalOptions="Center"
+                                                       HorizontalOptions="Center"
+                                                       Grid.Column="3"/>
+
+                                                        <!-- Background color based on pass/fail -->
+                                                        <Grid.Triggers>
+                                                            <DataTrigger TargetType="Grid" 
+                                                                 Binding="{Binding IsPass}" 
+                                                                 Value="True">
+                                                                <Setter Property="BackgroundColor" Value="#E8F5E9"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger TargetType="Grid" 
+                                                                 Binding="{Binding IsPass}" 
+                                                                 Value="False">
+                                                                <Setter Property="BackgroundColor" Value="#FFEBEE"/>
+                                                            </DataTrigger>
+                                                        </Grid.Triggers>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                    </VerticalStackLayout>
+
+                                    <!-- Summary -->
+                                    <Border BackgroundColor="#F8F9FA"
+                                        Stroke="#E0E0E0"
+                                        StrokeThickness="1"
+                                        Padding="10"
+                                        Margin="0,10"
+                                        StrokeShape="RoundRectangle 8">
+
+                                        <Grid ColumnDefinitions="*,*" 
+                                      RowDefinitions="Auto,Auto,Auto"
+                                      RowSpacing="5">
+
+                                            <Label Text="Total:" 
+                                           TextColor="#2D2D2D"
+                                           FontAttributes="Bold"
+                                           FontSize="10"
+                                           VerticalOptions="Center"
+                                           Grid.Column="0"/>
+
+                                            <Label Text="{Binding TotalMarksObtained, StringFormat='{0:F0}/{1:F0}'}" 
+                                           TextColor="#2D2D2D"
+                                           FontAttributes="Bold"
+                                           FontSize="10"
+                                           VerticalOptions="Center"
+                                           Grid.Column="1"
+                                           HorizontalOptions="End"/>
+
+                                            <Label Text="Percentage:" 
+                                                TextColor="#2D2D2D"
+                                                FontAttributes="Bold"
+                                                FontSize="10"
+                                                VerticalOptions="Center"
+                                                Grid.Column="0"
+                                               Grid.Row="1"/>
+
+                                            <Label Text="{Binding Percentage, StringFormat='{0:F2}%'}"
+                                           FontSize="10"
+                                           TextColor="#2D2D2D"
+                                           FontAttributes="Bold"
+                                           Grid.Column="1"
+                                           Grid.Row="1"
+                                           HorizontalOptions="End"/>
+
+                                            <Label Text="Status:" 
+                                           FontAttributes="Bold"
+                                           FontSize="10"
+                                           TextColor="#2D2D2D"
+                                           VerticalOptions="Center"
+                                           Grid.Column="0"
+                                           Grid.Row="2"/>
+                                            <Label Text="{Binding OverallStatus}" 
+                                           FontAttributes="Bold"
+                                           FontSize="10"
+                                           VerticalOptions="Center"
+                                           Grid.Column="1"
+                                           Grid.Row="2"
+                                           HorizontalOptions="End">
+
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label" 
+                                                         Binding="{Binding OverallStatus}" 
+                                                         Value="PASS">
+                                                        <Setter Property="TextColor" Value="Green"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" 
+                                                         Binding="{Binding OverallStatus}" 
+                                                         Value="ATKT">
+                                                        <Setter Property="TextColor" Value="Orange"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" 
+                                                         Binding="{Binding OverallStatus}" 
+                                                         Value="FAIL">
+                                                        <Setter Property="TextColor" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                        </Grid>
+                                    </Border>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+                
+            </VerticalStackLayout>
+        </ScrollView>
+        <local:ProfilePage Grid.Row="0"
+                            VerticalOptions="Start"/>
+        <Grid Grid.Row="1" 
+                ColumnDefinitions="*, *, *, *, *"  
+                ColumnSpacing="15" 
+                Padding="5"
+                BackgroundColor="{StaticResource RrPrimary}">
+
+
+            <ImageButton Source="home.png"
+                         Command="{Binding NavigateToDashboardCommand}"
+                HeightRequest="10"
+                Grid.Column="0"/>
+
+            <ImageButton Source="calendar.png"
+                Command="{Binding NavigateToCalendarCommand}"
+                HeightRequest="10"
+                Grid.Column="1" />
+
+            <ImageButton Source="marksheetfill.png"
+                Command="{Binding NavigateToResultSummaryCommand}"
+                HeightRequest="10"
+                Grid.Column="2" />
+
+
+            <ImageButton Source="list.png"
+            Command="{Binding NavigateToTimeTableCommand}"
+            CornerRadius="8"
+            BackgroundColor="{StaticResource RrPrimary}"
+            HeightRequest="10"
+            Grid.Column="3"/>
+
+            <ImageButton Source="user.png"
+                Command="{Binding ShowProfileCommand}"
+                CornerRadius="30"
+                HeightRequest="10"
+                Grid.Column="4" />
+
+        </Grid>
+    </Grid>
+</ContentPage>

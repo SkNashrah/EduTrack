@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Scheduler;assembly=Syncfusion.Maui.Scheduler"
+             xmlns:locals="clr-namespace:ExamPortal.ViewModels"
+             xmlns:local ="clr-namespace:ExamPortal"
+             x:Class="ExamPortal.ExamCalendar"
+             Style="{StaticResource RrPage}"
+             Title="ExamCalendar">
+    <Grid RowDefinitions="*, Auto">
+        <ScrollView Grid.Row="0">
+            <Grid Padding="10">
+
+                <syncfusion:SfScheduler x:Name="Scheduler"
+                                        View="Month"
+                                        AppointmentsSource="{Binding ExamAppointments}"
+                                        HeightRequest="550"
+                                        BackgroundColor="{StaticResource RrCard}"
+                                        ShowDatePickerButton="True"
+                                        VerticalOptions="Start">
+
+                    <syncfusion:SfScheduler.MonthView>
+                        <syncfusion:SchedulerMonthView AppointmentDisplayMode="Text"
+                                                       AppointmentIndicatorCount="4"
+                                                       NavigationDirection="Vertical"
+                                                       ShowLeadingAndTrailingDates="False"/>
+                    </syncfusion:SfScheduler.MonthView>
+
+                    <syncfusion:SfScheduler.Resources>
+                        <Style TargetType="syncfusion:SfScheduler">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="{StaticResource RrCard}" Offset="0.1"/>
+                                        <GradientStop Color="White" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </syncfusion:SfScheduler.Resources>
+                </syncfusion:SfScheduler>
+
+                <ImageButton Source="add.png"
+                             Command="{Binding NavigateToAddExamCommand}"
+                             BackgroundColor="{StaticResource RrPrimary}"
+                             CornerRadius="25"
+                             HeightRequest="40"
+                             WidthRequest="40"
+                             Padding="10"
+                             Margin="10,30"
+                             HorizontalOptions="End"
+                             VerticalOptions="End"/>
+                <local:ProfilePage Grid.RowSpan="2"
+                                   Margin="-10"
+                                   Padding="0"/>
+            </Grid>
+
+        </ScrollView>
+
+        <Grid Grid.Row="1" 
+      ColumnDefinitions="*, *, *, *, *"  
+      ColumnSpacing="15" 
+      Padding="5"
+      BackgroundColor="{StaticResource RrPrimary}">
+
+
+            <ImageButton Source="home.png"
+                        Command="{Binding NavigateToDashboardCommand}"
+                 HeightRequest="10"
+                 Grid.Column="0"/>
+
+            <ImageButton Source="calendarfill.png"
+                 Command="{Binding NavigateToCalendarCommand}"
+                 HeightRequest="10"
+                 Grid.Column="1" />
+
+            <ImageButton Source="marksheet.png"
+                 Command="{Binding NavigateToResultSummaryCommand}"
+                 HeightRequest="10"
+                 Grid.Column="2" />
+
+
+            <ImageButton Source="list.png"
+                Command="{Binding NavigateToTimeTableCommand}"
+                CornerRadius="8"
+                BackgroundColor="{StaticResource RrPrimary}"
+                HeightRequest="10"
+                Grid.Column="3"/>
+
+            <ImageButton Source="user.png"
+                 Command="{Binding ShowProfileCommand}"
+                 CornerRadius="30"
+                 HeightRequest="10"
+                 Grid.Column="4" />
+
+        </Grid>
+    </Grid>
+</ContentPage>
